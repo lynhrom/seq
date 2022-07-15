@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:WebApi.Features.BaseMessage">
+            <summary>
+            Base class used by API requests
+            </summary>
+        </member>
+        <member name="F:WebApi.Features.BaseMessage._correlationId">
+            <summary>
+            Unique Identifier used by logging
+            </summary>
+        </member>
+        <member name="T:WebApi.Features.BaseRequest">
+            <summary>
+            Base class used by API requests
+            </summary>
+        </member>
+        <member name="T:WebApi.Features.BaseResponse">
+            <summary>
+            Base class used by API responses
+            </summary>
+        </member>
+    </members>
+</doc>
