@@ -1,7 +1,6 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebApi.Features;
+using WebApi.Features.Sources;
 
 namespace WebApi.Controllers
 {

@@ -1,4 +1,4 @@
-﻿namespace WebApi.Features
+﻿namespace WebApi.Features.Markets
 {
     public class ListPagedPriceRequest : BaseRequest
     {

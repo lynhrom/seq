@@ -12,7 +12,8 @@ namespace Application.Specifications
             Query
                 .Where(x => x.PriceSourceId == priceSourceId && x.TickerId == tickerId)
                 .Include(x => x.Ticker)
-                .Include(x => x.PriceSource)                
+                .Include(x => x.PriceSource)    
+                .OrderByDescending(x=>x.Date)
                 .Skip(skip).Take(pageSize);
         }
     }

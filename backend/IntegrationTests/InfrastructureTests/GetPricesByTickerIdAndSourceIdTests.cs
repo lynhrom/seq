@@ -3,7 +3,7 @@ using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Features;
-using static WebApi.Features.GetPagedPriceQuery;
+using WebApi.Features.Markets;
 
 namespace IntegrationTests.ApplicationTests
 {
@@ -49,9 +49,9 @@ namespace IntegrationTests.ApplicationTests
             var items = new List<MarketData>
                 {
                     new MarketData(DateTime.Now,  0, 1, 1),
-                    new MarketData(DateTime.Now.AddDays(1), itemOnePrice, 1, 2),
-                    new MarketData(DateTime.Now.AddDays(2), 0, 1, 1),
-                    new MarketData(DateTime.Now.AddDays(3), 0, 1, 2),
+                    new MarketData(DateTime.Now.AddDays(1), 0, 1, 2),
+                    new MarketData(DateTime.Now.AddDays(2), itemOnePrice, 1, 1),
+                    new MarketData(DateTime.Now.AddDays(3), 0, 1, 1),
                     new MarketData(DateTime.Now.AddDays(4), 0, 1, 2),
                     new MarketData(DateTime.Now.AddDays(5), 0, 1, 2),
                     new MarketData(DateTime.Now.AddDays(6), 0, 1, 2),
@@ -59,13 +59,17 @@ namespace IntegrationTests.ApplicationTests
             _context.Prices.AddRange(items);
             _context.SaveChanges();
             //Act
-            var request = new GetPagedPriceQuery { Request = new ListPagedPriceRequest(10, 0, 1, 1) };
-            var spec = new Application.Specifications.TickerFilterSpecification(2, 1);
+            var request = new GetPagedPriceQuery { Request = new ListPagedPriceRequest(5, 0, 1, 1) };
+            var spec = new Application.Specifications.TickerFilterSpecification(1, 1);
             var result = await _repository.ListAsync(spec);
+            var orderedItems = result.OrderByDescending(x => x.Date);
             //Assert
-            Assert.Equal(5, result.Count());
-            Assert.Equal(1, result.Count(x=>x.Date.Date == DateTime.Now.AddDays(1).Date));
+            Assert.Equal(3, result.Count());
+            Assert.Equal(1, result.Count(x=>x.Date.Date == DateTime.Now.AddDays(2).Date));
+            Assert.Equal(DateTime.Now.AddDays(3).Date, result.Max(x=>x.Date.Date));
+            Assert.Equal(DateTime.Now.Date, result.Min(x=>x.Date.Date));
             Assert.Equal(1, result.Count(x=>x.Price == itemOnePrice));
+            Assert.Equal(result, orderedItems);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Application.Interfaces;
 using AutoMapper;
-using Domain.Entities;
 using MediatR;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.Entities;
 
-namespace WebApi.Features
+namespace WebApi.Features.Sources
 {
     public class GetAllPriceSourceQuery : IRequest<ListPriceSourceResponse>
     {
@@ -33,6 +33,6 @@ namespace WebApi.Features
             }
         }
 
-        
+
     }
 }

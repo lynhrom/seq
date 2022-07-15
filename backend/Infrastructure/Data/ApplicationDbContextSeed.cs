@@ -62,23 +62,23 @@ namespace Infrastructure.Data
                             for (var j = 1; j <= 15; j++)
                             {
                                 decimal rdPrice = 0;
-                                var percentPriceChanges = rnd.Next(1, 10) / 100;
+                                var percentPriceChanges = rnd.Next(1, 10);
                                 switch (ticker.Code)
                                 {
                                     case "IBM":
-                                        rdPrice = currentPriceOfIBM + currentPriceOfIBM * percentPriceChanges;
+                                        rdPrice = currentPriceOfIBM + currentPriceOfIBM * percentPriceChanges / 100;
                                         break;
                                     case "GOOG":
-                                        rdPrice = currentPriceOfGOOG + currentPriceOfGOOG * percentPriceChanges;
+                                        rdPrice = currentPriceOfGOOG + currentPriceOfGOOG * percentPriceChanges / 100;
                                         break;
                                     case "AAPL":
-                                        rdPrice = currentPriceOfAAPL + currentPriceOfAAPL * percentPriceChanges;
+                                        rdPrice = currentPriceOfAAPL + currentPriceOfAAPL * percentPriceChanges / 100;
                                         break;
                                     default:
                                         break;
                                 }
 
-                                var rdDate = currentDate.AddSeconds(rnd.Next(5, 120));
+                                var rdDate = currentDate.AddSeconds(rnd.Next(5, 240));
                                 prices.Add(new MarketData (rdDate, rdPrice, ticker.Id, source.Id ));
 
                                 i++;

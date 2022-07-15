@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WebApi.Features
+namespace WebApi.Features.Markets
 {
     public class GetPagedPriceQuery : IRequest<ListPagedPriceResponse>
     {
@@ -29,14 +29,14 @@ namespace WebApi.Features
                 var result = new ListPagedPriceResponse(query.Request.CorrelationId());
                 var filterSpec = new TickerFilterSpecification(query.Request.PriceSourceId, query.Request.TickerId);
                 var pagedSpec = new TickerFilterPaginatedSpecification(query.Request.PageIndex, query.Request.PageSize, query.Request.PriceSourceId, query.Request.TickerId);
-                var items = (await _tickerRepository.ListAsync(pagedSpec))?.OrderByDescending(x => x.Date);
+                var items = (await _tickerRepository.ListAsync(pagedSpec));
                 int totalItems = await _tickerRepository.CountAsync(filterSpec);
                 result.Items.AddRange(items.Select(_mapper.Map<PriceDto>));
                 if (query.Request.PageSize > 0)
                 {
                     result.PageCount = int.Parse(Math.Ceiling((decimal)totalItems / query.Request.PageSize).ToString());
                 }
-               
+
                 return result;
             }
         }

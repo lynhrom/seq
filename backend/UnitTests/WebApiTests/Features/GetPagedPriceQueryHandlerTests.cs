@@ -4,7 +4,8 @@ using AutoMapper;
 using Domain.Entities;
 using Moq;
 using WebApi.Features;
-using static WebApi.Features.GetPagedPriceQuery;
+using WebApi.Features.Markets;
+using static WebApi.Features.Markets.GetPagedPriceQuery;
 
 namespace UnitTests.WebApiTests.Features
 {
@@ -17,10 +18,10 @@ namespace UnitTests.WebApiTests.Features
         {
             var items = new List<MarketData>
                 {
-                    new MarketData(DateTime.Now,  0, 1, 1),
-                    new MarketData(DateTime.Now.AddDays(1), 0, 1, 1),
-                    new MarketData(DateTime.Now.AddDays(2), 0, 1, 1),
                     new MarketData(DateTime.Now.AddDays(3), 0, 1, 1),
+                    new MarketData(DateTime.Now.AddDays(2), 0, 1, 1),
+                    new MarketData(DateTime.Now.AddDays(1), 0, 1, 1),
+                    new MarketData(DateTime.Now,  0, 1, 1),
                 };
             _mockTickerRepository = new Mock<IReadRepository<MarketData>>();
             _mockTickerRepository.Setup(x => x.ListAsync(It.IsAny<ISpecification<MarketData>>(), default)).ReturnsAsync(items);

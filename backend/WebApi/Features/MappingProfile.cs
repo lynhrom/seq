@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using WebApi.Features.Markets;
+using WebApi.Features.Sources;
+using WebApi.Features.Tickers;
 
 namespace WebApi.Features
 {

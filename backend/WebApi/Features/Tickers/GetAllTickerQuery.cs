@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WebApi.Features
+namespace WebApi.Features.Tickers
 {
     public class GetAllTickerQuery : IRequest<ListTickerResponse>
     {
@@ -30,6 +30,6 @@ namespace WebApi.Features
                 result.Items.AddRange(items.Select(_mapper.Map<TickerDto>));
                 return result;
             }
-        }        
+        }
     }
 }
