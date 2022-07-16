@@ -31,6 +31,7 @@ yarn-error.log
 **/**/obj/
 **/**/bin/
 **/.vs/
+**/.next/
 
 # Miscellaneous
 /.angular/cache
