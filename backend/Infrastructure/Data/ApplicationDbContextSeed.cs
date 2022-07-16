@@ -68,7 +68,7 @@ namespace Infrastructure.Data
                                 var latestPrice = dictSimulator[ticker.Code];
                                 var rdPrice = latestPrice + latestPrice * percentPriceChanges / 100;
                                 var rdDate = currentDate.AddSeconds(rnd.Next(5, 240));
-                                prices.Add(new MarketData (rdDate, rdPrice, ticker.Id, source.Id ));
+                                prices.Add(new MarketData (rdDate, Math.Round(rdPrice, 2), ticker.Id, source.Id ));
 
                                 i++;
                             }

@@ -1,4 +1,6 @@
-﻿using Infrastructure.Handlers.Markets;
+﻿using Application.Common;
+using Application.Services;
+using Infrastructure.Handlers.Markets;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -25,7 +27,8 @@ namespace Infrastructure.Services
                 Request = new ListPagedPriceRequest(5, 0, sourceId, tickerId)
             });
 
-            await Clients.All.SendAsync("ReceiveData", items);
+            await Groups.AddToGroupAsync(Context.ConnectionId, string.Format("{0};#{1}", tickerId, sourceId));
+            await Clients.Caller.SendAsync(SignalRContants.ReceiveData, items);
         }
     }
 }

@@ -1,3 +1,4 @@
 {
-  "SERVER_URL": "https://localhost:5099"
+  "SERVER_URL": "https://localhost:5099",
+  "PAGE_SIZE": "5"
 }

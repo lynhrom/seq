@@ -1,9 +1,9 @@
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Data;
+using Infrastructure.Handlers;
+using Infrastructure.Handlers.Markets;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Features;
-using WebApi.Features.Markets;
 
 namespace IntegrationTests.ApplicationTests
 {

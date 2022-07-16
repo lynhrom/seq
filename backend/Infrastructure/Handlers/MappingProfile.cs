@@ -12,9 +12,7 @@ namespace Infrastructure.Handlers
         {
             CreateMap<Ticker, TickerDto>();
             CreateMap<PriceSource, PriceSourceDto>();
-            CreateMap<MarketData, PriceDto>()
-                    .ForMember(dto => dto.Ticker, options => options.MapFrom(src => src.Ticker.Code))
-                    .ForMember(dto => dto.Source, options => options.MapFrom(src => src.PriceSource.Code));
+            CreateMap<MarketData, PriceDto>();
 
         }
     }

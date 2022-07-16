@@ -26,7 +26,7 @@ namespace Infrastructure.Handlers.Markets
 
             public async Task<ListPagedPriceResponse> Handle(GetPagedPriceQuery query, CancellationToken cancellationToken)
             {
-                var result = new ListPagedPriceResponse(query.Request.CorrelationId());
+                var result = new ListPagedPriceResponse(query.Request.CorrelationId(), query.Request.TickerId, query.Request.PriceSourceId);
                 var filterSpec = new TickerFilterSpecification(query.Request.PriceSourceId, query.Request.TickerId);
                 var pagedSpec = new TickerFilterPaginatedSpecification(query.Request.PageIndex, query.Request.PageSize, query.Request.PriceSourceId, query.Request.TickerId);
                 var items = (await _tickerRepository.ListAsync(pagedSpec));
