@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebApi.Features.Markets;
+using Infrastructure.Handlers.Markets;
 
 namespace WebApi.Controllers
 {

@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Domain.Entities;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,13 +16,15 @@ namespace Infrastructure.BackgroundJobs
         private readonly IRepository<PriceSource> _priceSourceRepository;
         private readonly IRepository<MarketData> _marketDataRepository;
         private readonly ILogger<JobSchedulerService> _logger;
+        private readonly IHubContext<NotificationHub> _hubcontext;
 
-        public JobSchedulerService(IRepository<Ticker> tickerRepository, IRepository<PriceSource> priceSourceRepository, IRepository<MarketData> marketDataRepository, ILogger<JobSchedulerService> logger)
+        public JobSchedulerService(IRepository<Ticker> tickerRepository, IRepository<PriceSource> priceSourceRepository, IRepository<MarketData> marketDataRepository, ILogger<JobSchedulerService> logger, IHubContext<NotificationHub> hubcontext)
         {
             _tickerRepository = tickerRepository ?? throw new ArgumentNullException(nameof(tickerRepository));
             _priceSourceRepository = priceSourceRepository ?? throw new ArgumentNullException(nameof(priceSourceRepository));
             _marketDataRepository = marketDataRepository ?? throw new ArgumentNullException(nameof(marketDataRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _hubcontext = hubcontext ?? throw new ArgumentNullException(nameof(hubcontext));
         }
 
         public async Task SyncData()

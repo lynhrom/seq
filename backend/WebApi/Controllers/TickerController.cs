@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebApi.Features.Tickers;
+using Infrastructure.Handlers.Tickers;
 
 namespace WebApi.Controllers
 {

@@ -2,6 +2,8 @@ using Application;
 using Application.Common;
 using Hangfire;
 using Infrastructure;
+using Infrastructure.Handlers;
+using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using WebApi.Features;
 using WebApi.Middleware;
 
 namespace WebApi
@@ -29,9 +30,6 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(MappingProfile).Assembly);
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-
             services.AddApplication(Configuration);
             services.AddInfrastructure(Configuration);
             #region Swagger
@@ -76,9 +74,10 @@ namespace WebApi
                                       builder.WithOrigins(baseUrlConfig.WebBase.Replace("host.docker.internal", "localhost").TrimEnd('/'));
                                       builder.AllowAnyMethod();
                                       builder.AllowAnyHeader();
+                                      builder.AllowCredentials();
                                   });
             });
-
+            
             services.AddHttpContextAccessor();
             services.AddControllers();
         }
@@ -114,6 +113,7 @@ namespace WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/hubs/notifications");// Register Hub class
             });
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace WebApi.Features
+﻿namespace Infrastructure.Handlers
 {
     /// <summary>
     /// Base class used by API requests

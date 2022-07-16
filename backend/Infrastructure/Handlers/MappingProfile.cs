@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using WebApi.Features.Markets;
-using WebApi.Features.Sources;
-using WebApi.Features.Tickers;
+using Infrastructure.Handlers.Markets;
+using Infrastructure.Handlers.Sources;
+using Infrastructure.Handlers.Tickers;
 
-namespace WebApi.Features
+namespace Infrastructure.Handlers
 {
     public class MappingProfile : Profile
     {

@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.Entities;
 
-namespace WebApi.Features.Sources
+namespace Infrastructure.Handlers.Sources
 {
     public class GetAllPriceSourceQuery : IRequest<ListPriceSourceResponse>
     {

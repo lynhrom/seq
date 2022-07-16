@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi.Features.Tickers
+namespace Infrastructure.Handlers.Tickers
 {
     public class ListTickerResponse : BaseResponse
     {

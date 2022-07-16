@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi.Features.Markets
+namespace Infrastructure.Handlers.Markets
 {
     public class ListPagedPriceResponse : BaseResponse
     {

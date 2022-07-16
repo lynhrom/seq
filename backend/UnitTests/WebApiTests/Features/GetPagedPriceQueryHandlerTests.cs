@@ -3,9 +3,9 @@ using Ardalis.Specification;
 using AutoMapper;
 using Domain.Entities;
 using Moq;
-using WebApi.Features;
-using WebApi.Features.Markets;
-using static WebApi.Features.Markets.GetPagedPriceQuery;
+using Infrastructure.Handlers;
+using Infrastructure.Handlers.Markets;
+using static Infrastructure.Handlers.Markets.GetPagedPriceQuery;
 
 namespace UnitTests.WebApiTests.Features
 {

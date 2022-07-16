@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WebApi.Features.Markets
+namespace Infrastructure.Handlers.Markets
 {
     public class GetPagedPriceQuery : IRequest<ListPagedPriceResponse>
     {

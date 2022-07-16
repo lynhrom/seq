@@ -1,4 +1,5 @@
 import axios from "axios";
+import { HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { useState, useEffect } from "react";
 import { SearchResult } from "./search-result";
 import nextConfig from "./../config.json";
@@ -8,6 +9,8 @@ export default () => {
     const [sources, setSources] = useState({});
     const [tickers, setTickers] = useState({});
     const [data, setData] = useState({});
+    // Add: Our SignalR Hub
+    const [hubCx, setHubCx] = useState(null);
     const API_URL = nextConfig.SERVER_URL;
 
     const handleChange = (event) => {
@@ -32,13 +35,38 @@ export default () => {
         setData(res.data);
     }
 
+    const setUpSignalRConnection = async (query) => {
+        const connection = new HubConnectionBuilder()
+            .withUrl(`${API_URL}/hubs/notifications`) // Ensure same as BE
+            .withAutomaticReconnect()
+            .build();
+
+        connection.on('ReceiveData', (items) => {
+            setData(items);
+        });
+
+        try {
+            await connection.start();
+        } catch (err) {
+            console.log(err);
+        }
+
+        if (connection.state === HubConnectionState.Connected) {
+            connection.invoke('SendData', query.ticker, query.source).catch((err) => {
+                console.error(err);
+            });
+        }
+
+        return connection;
+    };
+
     useEffect(() => {
         fetchTickers();
         fetchSources();
     }, []);
 
     useEffect(() => {
-        fetchItems();
+        setUpSignalRConnection(query);
     }, [query]);
 
     const renderedTickers = tickers != null && tickers.items != null && tickers.items.length > 0 && tickers.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
@@ -50,7 +78,7 @@ export default () => {
                 <label className="col-sm-7 col-form-label">Price source:</label>
                 <div className="col-sm-5">
                     <select className="form-select" name="source" value={query.source} onChange={handleChange}>
-                        {renderedSources} 
+                        {renderedSources}
                     </select>
                 </div>
             </div>
@@ -63,7 +91,7 @@ export default () => {
                 </div>
             </div>
 
-            <SearchResult data ={data} />
+            <SearchResult data={data} />
         </div>
     </form>
 }

@@ -3,10 +3,13 @@ using Application.Interfaces;
 using Application.Services;
 using Infrastructure.BackgroundJobs;
 using Infrastructure.Data;
+using Infrastructure.Handlers;
 using Infrastructure.Logging;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Infrastructure
 {
@@ -26,6 +29,9 @@ namespace Infrastructure
 
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             services.AddScoped<IJobSchedulerService, JobSchedulerService>();
+            services.AddSignalR();
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            services.AddMediatR(Assembly.GetExecutingAssembly());
         }
     }
 }

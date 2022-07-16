@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi.Features.Sources
+namespace Infrastructure.Handlers.Sources
 {
     public class ListPriceSourceResponse : BaseResponse
     {
