@@ -1,4 +1,5 @@
 using Application;
+using Hangfire;
 using Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,7 @@ namespace WebApi
                 c.SchemaFilter<CustomSchemaFilters>();
             });
             #endregion
+
             #region API Versioning
             // Add API Versioning to the Project
             services.AddApiVersioning(config =>
@@ -56,6 +58,10 @@ namespace WebApi
             });
             #endregion
 
+            #region Hangfire
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfireServer();
+            #endregion
             services.AddHttpContextAccessor();
             services.AddControllers();
         }
@@ -82,7 +88,9 @@ namespace WebApi
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();            
+            app.UseAuthorization();
+
+            app.UseHangfireDashboard();
 
             app.UseEndpoints(endpoints =>
             {

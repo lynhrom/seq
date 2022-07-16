@@ -1,5 +1,7 @@
 ﻿using Application;
 using Application.Interfaces;
+using Application.Services;
+using Infrastructure.BackgroundJobs;
 using Infrastructure.Data;
 using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,7 @@ namespace Infrastructure
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+            services.AddScoped<IJobSchedulerService, JobSchedulerService>();
         }
     }
 }

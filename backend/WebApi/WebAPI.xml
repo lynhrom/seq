@@ -4,6 +4,13 @@
         <name>WebApi</name>
     </assembly>
     <members>
+        <member name="M:WebApi.Controllers.JobSchedulerController.CreateReccuringJob(System.Int32)">
+            <summary>
+            minuteInterval must be an interger and minimum value is 5 minutes
+            </summary>
+            <param name="minuteInterval"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebApi.Features.BaseMessage">
             <summary>
             Base class used by API requests
