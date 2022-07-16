@@ -6,9 +6,19 @@
     <members>
         <member name="M:WebApi.Controllers.JobSchedulerController.CreateReccuringJob(System.Int32)">
             <summary>
-            minuteInterval must be an interger and minimum value is 5 minutes
+            Create a new job schedule
             </summary>
-            <param name="minuteInterval"></param>
+            <param name="minuteInterval">must be an interger and minimum value is 5 minutes</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApi.Controllers.MarketController.Get(System.Int32,System.Int32,System.Int64,System.Int64)">
+            <summary>
+            Filter price history base on selected Ticker and Source
+            </summary>
+            <param name="pageSize">Be an integer with min is 5 and max is 10</param>
+            <param name="pageIndex">Be an integer with min value is 0</param>
+            <param name="priceSourceId">Be an integer with min value is 1</param>
+            <param name="tickerId">Be an integer with min value is 1</param>
             <returns></returns>
         </member>
         <member name="T:WebApi.Features.BaseMessage">

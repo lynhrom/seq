@@ -4,6 +4,7 @@ using WebApi.Features.Tickers;
 
 namespace WebApi.Controllers
 {
+    [Route("ticker")]
     public class TickerController : BaseApiController
     {
         [HttpGet]

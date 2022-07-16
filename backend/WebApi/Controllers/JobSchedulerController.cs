@@ -5,6 +5,7 @@ using System;
 
 namespace WebApi.Controllers
 {
+    [Route("job-schedule")]
     public class JobSchedulerController : BaseApiController
     {
         private readonly IJobSchedulerService _jobTestService;
@@ -15,11 +16,11 @@ namespace WebApi.Controllers
         }
 
         /// <summary>
-        /// minuteInterval must be an interger and minimum value is 5 minutes
+        /// Create a new job schedule
         /// </summary>
-        /// <param name="minuteInterval"></param>
+        /// <param name="minuteInterval">must be an interger and minimum value is 5 minutes</param>
         /// <returns></returns>
-        [HttpGet("/create-a-minutes-job/{minuteInterval:int:min(5)}")]
+        [HttpGet("create-a-new-job/{minuteInterval:int:min(5)}")]
         public IActionResult CreateReccuringJob(int minuteInterval)
         {
             RecurringJob.AddOrUpdate("JobTestService.SyncJob", () => _jobTestService.SyncData(), Cron.MinuteInterval(minuteInterval));

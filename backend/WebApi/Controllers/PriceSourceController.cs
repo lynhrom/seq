@@ -4,6 +4,7 @@ using WebApi.Features.Sources;
 
 namespace WebApi.Controllers
 {
+    [Route("source")]
     public class PriceSourceController : BaseApiController
     {
         [HttpGet]

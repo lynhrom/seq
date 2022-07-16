@@ -49,9 +49,12 @@ namespace Infrastructure.Data
                     var currentDate = DateTime.Now;
                     var rnd = new Random();
                     int seconds = rnd.Next(5,59);
-                    var currentPriceOfIBM = 137.46m;
-                    var currentPriceOfGOOG = 2223.91m;
-                    var currentPriceOfAAPL = 146.95m;
+                    var dictSimulator = new Dictionary<string, decimal>
+                    {
+                        {"IBM",  137.46m},
+                        {"GOOG",  2223.91m},
+                        {"AAPL",  146.95m},
+                    };
 
                     var prices = new List<MarketData>();
                     int i = 1;
@@ -61,23 +64,9 @@ namespace Infrastructure.Data
                         {
                             for (var j = 1; j <= 15; j++)
                             {
-                                decimal rdPrice = 0;
                                 var percentPriceChanges = rnd.Next(1, 10);
-                                switch (ticker.Code)
-                                {
-                                    case "IBM":
-                                        rdPrice = currentPriceOfIBM + currentPriceOfIBM * percentPriceChanges / 100;
-                                        break;
-                                    case "GOOG":
-                                        rdPrice = currentPriceOfGOOG + currentPriceOfGOOG * percentPriceChanges / 100;
-                                        break;
-                                    case "AAPL":
-                                        rdPrice = currentPriceOfAAPL + currentPriceOfAAPL * percentPriceChanges / 100;
-                                        break;
-                                    default:
-                                        break;
-                                }
-
+                                var latestPrice = dictSimulator[ticker.Code];
+                                var rdPrice = latestPrice + latestPrice * percentPriceChanges / 100;
                                 var rdDate = currentDate.AddSeconds(rnd.Next(5, 240));
                                 prices.Add(new MarketData (rdDate, rdPrice, ticker.Id, source.Id ));
 

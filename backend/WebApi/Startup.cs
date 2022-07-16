@@ -1,4 +1,5 @@
 using Application;
+using Application.Common;
 using Hangfire;
 using Infrastructure;
 using MediatR;
@@ -17,6 +18,7 @@ namespace WebApi
 {
     public class Startup
     {
+        const string CORS_POLICY = "CorsPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -62,6 +64,21 @@ namespace WebApi
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
             services.AddHangfireServer();
             #endregion
+
+            var configSection = Configuration.GetRequiredSection(BaseUrlConfiguration.CONFIG_NAME);
+            services.Configure<BaseUrlConfiguration>(configSection);
+            var baseUrlConfig = configSection.Get<BaseUrlConfiguration>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CORS_POLICY,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins(baseUrlConfig.WebBase.Replace("host.docker.internal", "localhost").TrimEnd('/'));
+                                      builder.AllowAnyMethod();
+                                      builder.AllowAnyHeader();
+                                  });
+            });
+
             services.AddHttpContextAccessor();
             services.AddControllers();
         }
@@ -87,6 +104,8 @@ namespace WebApi
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseRouting();
+            app.UseCors(CORS_POLICY);
+
             app.UseAuthentication();
             app.UseAuthorization();
 
