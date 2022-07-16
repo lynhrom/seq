@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { SearchResult } from "./search-result";
+import nextConfig from "./../config.json";
 
 export default () => {
     const [query, setQuery] = useState({ source: "1", ticker: "1" });
     const [sources, setSources] = useState({});
     const [tickers, setTickers] = useState({});
     const [data, setData] = useState({});
+    const API_URL = nextConfig.SERVER_URL;
 
     const handleChange = (event) => {
         setQuery(values => ({
@@ -16,17 +18,17 @@ export default () => {
     }
 
     const fetchTickers = async () => {
-        const res = await axios.get(`https://localhost:5099/ticker`);
+        const res = await axios.get(`${API_URL}/ticker`);
         setTickers(res.data);
     }
 
     const fetchSources = async () => {
-        const res = await axios.get(`https://localhost:5099/source`);
+        const res = await axios.get(`${API_URL}/source`);
         setSources(res.data);
     }
 
     const fetchItems = async () => {
-        const res = await axios.get(`https://localhost:5099/market/5/0/${query.source}/${query.ticker}`);
+        const res = await axios.get(`${API_URL}/market/5/0/${query.source}/${query.ticker}`);
         setData(res.data);
     }
 
