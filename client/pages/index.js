@@ -1,6 +1,6 @@
 import axios from "axios";
-import * as moment from 'moment'
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { SearchResult } from "./search-result";
 
 export default () => {
     const [query, setQuery] = useState({ source: "1", ticker: "1" });
@@ -39,10 +39,6 @@ export default () => {
         fetchItems();
     }, [query]);
 
-    const renderedItems = data != null && data.items != null && data.items.length > 0 ? (data.items.map(item => {
-        return <tr key={item.date}><td>{moment(item.date).format('yyyy-MM-DD hh:mm:ss')}</td><td>{item.price}</td></tr>
-    })) : (<tr><td colSpan={2} className="font-weight-light text-center">No data</td></tr>);
-
     const renderedTickers = tickers != null && tickers.items != null && tickers.items.length > 0 && tickers.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
     const renderedSources = sources != null && sources.items != null && sources.items.length > 0 && sources.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
 
@@ -65,18 +61,7 @@ export default () => {
                 </div>
             </div>
 
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th className="col-sm-5">Date</th>
-                        <th className="col-sm-5">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderedItems}
-                </tbody>
-            </table>
+            <SearchResult data ={data} />
         </div>
-
     </form>
 }

@@ -13,9 +13,9 @@
         </member>
         <member name="M:WebApi.Controllers.MarketController.Get(System.Int32,System.Int32,System.Int64,System.Int64)">
             <summary>
-            Filter price history base on selected Ticker and Source
+            Filter prices history base on selected Ticker and Data Source
             </summary>
-            <param name="pageSize">Be an integer with min is 5 and max is 10</param>
+            <param name="pageSize">Be an integer with min value is 5 and max value is 10</param>
             <param name="pageIndex">Be an integer with min value is 0</param>
             <param name="priceSourceId">Be an integer with min value is 1</param>
             <param name="tickerId">Be an integer with min value is 1</param>
