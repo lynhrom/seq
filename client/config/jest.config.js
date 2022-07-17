@@ -10,5 +10,5 @@ module.exports = {
     },
     verbose: true,
     collectCoverage: true,
-    coveragePathIgnorePatterns: [ "./tests/test-utils.js" ]
+    coveragePathIgnorePatterns: [ "./tests/test-utils.js","./tests/mock-hub.js" ]
 };

@@ -45,11 +45,12 @@ export default () => {
         connection.on('ReceiveData', (result) => {
             if(result.tickerId == query.tickerId && result.sourceId == query.sourceId)
                 setData(result);
-        });
+        })
 
         try {
             await connection.start();
         } catch (err) {
+            alert(err);
             console.log(err);
         }
 
@@ -71,8 +72,8 @@ export default () => {
         setUpSignalRConnection(query);
     }, [query]);
 
-    const renderedTickers = tickers != null && tickers.items != null && tickers.items.length > 0 && tickers.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
-    const renderedSources = sources != null && sources.items != null && sources.items.length > 0 && sources.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
+    const renderedTickers = tickers && tickers.items && tickers.items.length > 0 && tickers.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
+    const renderedSources = sources && sources.items && sources.items.length > 0 && sources.items.map(x => { return <option key={x.id} value={x.id}>{x.name}</option> });
 
     return <div role="root">
         <div className="m-5" data-testid="filter-data-history">
