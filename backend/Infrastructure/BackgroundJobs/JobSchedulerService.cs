@@ -3,6 +3,7 @@ using Application.Common;
 using Application.Interfaces;
 using Application.Services;
 using Domain.Entities;
+using Infrastructure.Data;
 using Infrastructure.Handlers.Markets;
 using Infrastructure.Services;
 using MediatR;
@@ -24,8 +25,10 @@ namespace Infrastructure.BackgroundJobs
         private readonly IHubContext<NotificationHub> _hubcontext;
         private readonly IMediator _mediator;
         private readonly AppSettings _appSettings;
+        private readonly ApplicationDbContext _context;
 
-        public JobSchedulerService(IOptions<AppSettings> appSettings, IRepository<Ticker> tickerRepository, IRepository<PriceSource> priceSourceRepository, IRepository<MarketData> marketDataRepository, ILogger<JobSchedulerService> logger, IHubContext<NotificationHub> hubcontext, IMediator mediator)
+        public JobSchedulerService(IOptions<AppSettings> appSettings, IRepository<Ticker> tickerRepository, IRepository<PriceSource> priceSourceRepository, 
+            IRepository<MarketData> marketDataRepository, ILogger<JobSchedulerService> logger, IHubContext<NotificationHub> hubcontext, IMediator mediator, ApplicationDbContext context)
         {
             _tickerRepository = tickerRepository ?? throw new ArgumentNullException(nameof(tickerRepository));
             _priceSourceRepository = priceSourceRepository ?? throw new ArgumentNullException(nameof(priceSourceRepository));
@@ -34,6 +37,7 @@ namespace Infrastructure.BackgroundJobs
             _hubcontext = hubcontext ?? throw new ArgumentNullException(nameof(hubcontext));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _appSettings = appSettings.Value;
+            _context = context;
         }
 
         public async Task SyncData()
@@ -51,6 +55,7 @@ namespace Infrastructure.BackgroundJobs
                     {"GOOG",  2223.91m},
                     {"AAPL",  146.95m},
                 };
+                var newItems = new List<MarketData>();
                 foreach (var source in sources)
                 {
                     foreach (var ticker in tickers)
@@ -60,11 +65,13 @@ namespace Infrastructure.BackgroundJobs
                         var rdPrice = latestPrice + latestPrice * percentPriceChanges / 100;
                         var rdDate = DateTime.Now.AddSeconds(rnd.Next(5, 240));
                         var entity = new MarketData(rdDate, Math.Round(rdPrice, 2), ticker.Id, source.Id);
-                        await _marketDataRepository.AddAsync(entity);
+                        newItems.Add(entity);
                     }
                 }
 
-                await _marketDataRepository.SaveChangesAsync();
+                await _context.Prices.AddRangeAsync(newItems);
+                await _context.SaveChangesAsync();
+
                 _logger.LogInformation("End Sync Data at " + DateTime.Now);
 
                 _logger.LogInformation("Start BroadcastMessage at " + DateTime.Now);

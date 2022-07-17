@@ -57,7 +57,6 @@ namespace Infrastructure.Data
                     };
 
                     var prices = new List<MarketData>();
-                    int i = 1;
                     foreach (var ticker in tickers)
                     {
                         foreach (var source in priceSources)
@@ -69,8 +68,6 @@ namespace Infrastructure.Data
                                 var rdPrice = latestPrice + latestPrice * percentPriceChanges / 100;
                                 var rdDate = currentDate.AddSeconds(rnd.Next(5, 240));
                                 prices.Add(new MarketData (rdDate, Math.Round(rdPrice, 2), ticker.Id, source.Id ));
-
-                                i++;
                             }
                         }
                     }  
