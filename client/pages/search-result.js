@@ -5,7 +5,7 @@ const SearchResult = ({data}) => {
         return <tr key={item.date}><td>{moment(item.date).format('yyyy-MM-DD hh:mm:ss')}</td><td>{item.price}</td></tr>
     })) : (<tr><td colSpan={2} className="font-weight-light text-center">No data</td></tr>);
 
-    return <table className="table table-bordered">
+    return <table className="table table-bordered" data-testid="search-result">
         <thead>
             <tr>
                 <th className="col-sm-5">Date</th>
