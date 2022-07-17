@@ -5,6 +5,12 @@ services:
     build:
       context: ./
       dockerfile: WebApi\Dockerfile
+    depends_on:
+      - "sqlserver"
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest
     ports:
-      - "5106:80"
- 
+      - "1433:1433"
+    environment:
+      - SA_PASSWORD=pass@word1
+      - ACCEPT_EULA=Y    

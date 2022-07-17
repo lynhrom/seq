@@ -11,21 +11,13 @@ You will have to install the [.NET 6.0 SDK](https://dotnet.microsoft.com/downloa
     dotnet tool update --global dotnet-ef
     ```
 
-1. Open a command prompt in the Web folder and execute the following commands:
+1. Open a command prompt in the WebApi folder and execute the following commands:
     ```
     dotnet restore
     dotnet tool restore
     dotnet ef database update -c applicationdbcontext -p ../Infrastructure/Infrastructure.csproj -s WebApi.csproj
     ```
 
-1. Run the application.
-    The first time you run the application, it will seed the databases with data such that you should see something in the store.
-    Note: If you need to create migrations, you can use these commands:
-
-    ```
-    -- create migration (from WebApi folder CLI)
-    dotnet ef migrations add InitialModel --context applicationdbcontext -p ../Infrastructure/Infrastructure.csproj -s WebApi.csproj -o Data/Migrations
-    ```
 ## Running the sample
 
 - To start the back end you just go to the `WebApi` folder in a terminal window and run `dotnet run` from there.
@@ -39,7 +31,8 @@ You will have to install the [.NET 6.0 SDK](https://dotnet.microsoft.com/downloa
 <img src="https://user-images.githubusercontent.com/20091577/179419863-2d8b4c82-ded3-4ebb-85da-5e0b41b70c3d.PNG" width="100%" height="100%" />
 <img src="https://user-images.githubusercontent.com/20091577/179419864-eca4775a-80a8-49d1-beaa-a6193bbdbc65.PNG" width="100%" height="100%" />
 <img src="https://user-images.githubusercontent.com/20091577/179419858-47e02c69-6584-41eb-8cdb-cde710529b2a.PNG" width="100%" height="100%" />
-### Testing
+
+## Testing
 
 - To run the back end unit tests, navigate to `UnitTests` and run `dotnet test`.
 - To run the front end unit tests, navigate to `client` and run `npm test`.
@@ -49,14 +42,8 @@ You will have to install the [.NET 6.0 SDK](https://dotnet.microsoft.com/downloa
 First, go to the `backend` directory and build the release version of the app:
 
 ```sh
-dotnet publish -c Release
-```
-
-You can now build a Docker image using the [Dockerfile] in the `backend` directory.
-
-If you want to test the build production image locally, you can also use [docker-compose](https://docs.docker.com/compose/):
-
-```sh
+docker-compose build
 docker-compose up
 ```
 
+You should be able to make requests to `http://localhost:5106/swagger` for the WebApi project once these commands complete.
