@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Windows</DockerTargetOS>
-    <ProjectGuid>f3fb82e3-a0ae-4830-90ec-5e5f314dbfdc</ProjectGuid>
+    <ProjectGuid>4aa8f691-715e-49ce-bbdd-07176e48b1c4</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://{ServiceIPAddress}{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>webapi</DockerServiceName>
