@@ -36,9 +36,9 @@ You will have to install the [.NET 6.0 SDK](https://dotnet.microsoft.com/downloa
 - Now you should be able to browse to React app at `http://localhost:3000`.
 - This command might take a while on the first run, since it also installs all the dependencies required by ASP.NET and React.
 
-[<img src="https://user-images.githubusercontent.com/20091577/179419863-2d8b4c82-ded3-4ebb-85da-5e0b41b70c3d.PNG" height="300" />]
-[<img src="https://user-images.githubusercontent.com/20091577/179419864-eca4775a-80a8-49d1-beaa-a6193bbdbc65.PNG" height="300" />]
-[<img src="https://user-images.githubusercontent.com/20091577/179419858-47e02c69-6584-41eb-8cdb-cde710529b2a.PNG" height="300" />]
+[<img src="https://user-images.githubusercontent.com/20091577/179419863-2d8b4c82-ded3-4ebb-85da-5e0b41b70c3d.PNG" width="100%" height="100%" />]
+[<img src="https://user-images.githubusercontent.com/20091577/179419864-eca4775a-80a8-49d1-beaa-a6193bbdbc65.PNG" width="100%" height="100%" />]
+[<img src="https://user-images.githubusercontent.com/20091577/179419858-47e02c69-6584-41eb-8cdb-cde710529b2a.PNG" width="100%" height="100%" />]
 ### Testing
 
 - To run the back end unit tests, navigate to `UnitTests` and run `dotnet test`.
